@@ -1,4 +1,4 @@
-# Bubble 
+# :droplet: Bubble 
 
 CLI tool for scafoflding research projects
 
