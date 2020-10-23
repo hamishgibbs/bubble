@@ -23,9 +23,9 @@ Python CLI with click
 bubble process.R -csv -test
 ```
 
--csv: generate a template for outputting a csv file
+-csv: generate a template for outputting a csv file 
 -png: generate a template for outputting a png image
--test: set up a corresponding test file
-
+-module: generate a template for a module
+-test: set up a corresponding test file 
 
 
