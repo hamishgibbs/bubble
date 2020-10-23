@@ -1,6 +1,0 @@
-setup.py
-bubble/__init__.py
-bubble.egg-info/PKG-INFO
-bubble.egg-info/SOURCES.txt
-bubble.egg-info/dependency_links.txt
-bubble.egg-info/top_level.txt
