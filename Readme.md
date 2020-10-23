@@ -1,4 +1,4 @@
-# Bubble :blue_heart:
+# Bubble
 
 CLI tool for scafoflding research projects
 
