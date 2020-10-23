@@ -7,6 +7,10 @@ setuptools.setup(
     author_email="Hamish.Gibbs@lshtm.ac.uk",
     description="CLI tool for scaffolding research projects.",
     url="https://github.com/hamishgibbs/bubble",
+    py_modules=['bubble'],
+    install_requires=[
+        'Click',
+    ],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -14,4 +18,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    entry_points='''
+        [console_scripts]
+        bubble=bubble:cli
+    ''',
 )
