@@ -1,0 +1,35 @@
+action: GLOB, msg: packaging
+cwd: /usr/bubble
+cmd: /usr/local/bin/python setup.py sdist --formats=zip --dist-dir .tox/dist
+running sdist
+running egg_info
+writing bubble.egg-info/PKG-INFO
+writing dependency_links to bubble.egg-info/dependency_links.txt
+writing top-level names to bubble.egg-info/top_level.txt
+reading manifest file 'bubble.egg-info/SOURCES.txt'
+writing manifest file 'bubble.egg-info/SOURCES.txt'
+running check
+creating bubble-0.0.1
+creating bubble-0.0.1/bubble
+creating bubble-0.0.1/bubble.egg-info
+copying files to bubble-0.0.1...
+copying setup.py -> bubble-0.0.1
+copying bubble/__init__.py -> bubble-0.0.1/bubble
+copying bubble.egg-info/PKG-INFO -> bubble-0.0.1/bubble.egg-info
+copying bubble.egg-info/SOURCES.txt -> bubble-0.0.1/bubble.egg-info
+copying bubble.egg-info/dependency_links.txt -> bubble-0.0.1/bubble.egg-info
+copying bubble.egg-info/top_level.txt -> bubble-0.0.1/bubble.egg-info
+Writing bubble-0.0.1/setup.cfg
+creating '.tox/dist/bubble-0.0.1.zip' and adding 'bubble-0.0.1' to it
+adding 'bubble-0.0.1'
+adding 'bubble-0.0.1/bubble'
+adding 'bubble-0.0.1/bubble.egg-info'
+adding 'bubble-0.0.1/PKG-INFO'
+adding 'bubble-0.0.1/setup.cfg'
+adding 'bubble-0.0.1/setup.py'
+adding 'bubble-0.0.1/bubble/__init__.py'
+adding 'bubble-0.0.1/bubble.egg-info/PKG-INFO'
+adding 'bubble-0.0.1/bubble.egg-info/SOURCES.txt'
+adding 'bubble-0.0.1/bubble.egg-info/dependency_links.txt'
+adding 'bubble-0.0.1/bubble.egg-info/top_level.txt'
+removing 'bubble-0.0.1' (and everything under it)
