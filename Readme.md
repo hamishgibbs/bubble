@@ -1,6 +1,6 @@
 # Bubble
 
-CLI tool for scafoflding research projects
+CLI tool for scaffolding research projects.
 
 Python CLI with click
 
