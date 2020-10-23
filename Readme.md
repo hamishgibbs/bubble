@@ -1,4 +1,4 @@
-# :droplet: Bubble 
+# Bubble :blue_heart:
 
 CLI tool for scafoflding research projects
 
