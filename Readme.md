@@ -13,7 +13,7 @@ Python CLI with click
 ### Features:
 
 * Scaffold Python and R files for easy input/output and interactive coding
-* support to update existing projects with new formats
+* support to update existing projects with new default formats
 * parse a bubble template file to generate a makefile target and insert in an existing makefile 
 * generate corresponding testing infrastructre for all functions in a file
 	* using testthat or pytest
