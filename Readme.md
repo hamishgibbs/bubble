@@ -4,11 +4,11 @@ CLI tool for scafoflding research projects
 
 Python CLI with click
 
-### Motivation
-I don't like doing repetitive things
-I don't test my code often
-I am slow to add Makefile targets
-I use absolute file paths
+### Motivation:
+* I don't like doing repetitive things 
+* I don't test my code very often
+* I am slow to add Makefile targets
+* I use absolute file paths
 
 ### Features:
 
@@ -18,7 +18,7 @@ I use absolute file paths
 * generate corresponding testing infrastructre for all functions in a file
 	* using testthat or pytest
 
-### Usage
+### Usage:
 ``` {shell} 
 bubble process.R -csv -test
 ```
