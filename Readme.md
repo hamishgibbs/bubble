@@ -1,4 +1,5 @@
-# ◯ Bubble
+# ◯ 
+## Bubble
 
 CLI tool for scaffolding research projects.
 
