@@ -30,4 +30,4 @@ bubble process.R -csv -test
 `-module`: generate a template for a module  
 `-test`: set up a corresponding test file  
 
-Written with ::heart::.
+Made with :heart:.
