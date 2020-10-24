@@ -29,3 +29,5 @@ bubble process.R -csv -test
 `-png`: generate a template for outputting a png image  
 `-module`: generate a template for a module  
 `-test`: set up a corresponding test file  
+
+Written with ::heart::.
