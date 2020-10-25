@@ -1,16 +1,14 @@
 import os
 import click
-import utils
 import pkg_resources
 import re
 
 #Maybe start over. Should be VERY simple
 
-# no weird path parsing - just extract file extension
+# VERY SIMPLE
 
 resource_package = __name__
 
-#could probably have only one f
 #be careful of overwriting files
 # use some regular expressions
 #add way to sepcify proj dir from .env file in template
@@ -167,13 +165,13 @@ def create_make_target(file):
 
         depends = args[:-1]
 
-        depends = [in_quotes.findall(x)[0] for x in depends]
+        depends = ['${PWD}/' + in_quotes.findall(x)[0] for x in depends]
 
         depends = ' \n '.join(depends)
 
-        short_target = target_name + ': ' + target + '\n\n'
+        short_target = target_name + ': ${PWD}/' + target + '\n\n'
 
-        target = target + ': ' + file + ' \\ ' + '\n' + '\t' + depends + '\n\t$(R_INTERPRETER) $^ $@'
+        target = '${PWD}/' + target + ': ${PWD}/' + file + ' \\ ' + '\n' + '\t' + depends + '\n\t$(R_INTERPRETER) $^ $@'
 
     makefile_content = ''.join(makefile_lines) + '\n\n' + short_target + target
 
@@ -191,4 +189,7 @@ def flatten(list):
 
 
 if __name__ == '__main__':
+
+    print(resource_package)
+
     cli()
