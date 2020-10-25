@@ -10,8 +10,6 @@ def parse_fn(fn):
 
     extension = fn.split('.')[-1]
 
-    print(extension)
-
     extensions = {
         'R': ['r', 'R'],
         'Python': ['py']
@@ -30,6 +28,8 @@ def parse_fn(fn):
         file_types = ', '.join([item for sublist in extensions.values() for item in sublist])
 
         raise ValueError('Unknown file type. Bubble currently supports %s' % file_types)
+
+    #need more clarity to write the actual filename here
 
     res = {
         'fn': file_name,
@@ -56,15 +56,11 @@ def write_template(template: str, fn: str):
 
             f.write(template)
 
-        print(new_location)
-
         write_success(new_location)
 
     else:
 
         new_location = os.getcwd() + '/' + new_location
-
-        print(new_location)
 
         with open(new_location, 'wb') as f:
 
@@ -76,3 +72,7 @@ def write_template(template: str, fn: str):
 def write_success(new_location):
 
     print('Success. Created %s' % new_location)
+
+def parse_args_r(file):
+
+    return(file)
