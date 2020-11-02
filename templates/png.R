@@ -10,12 +10,12 @@ suppressPackageStartupMessages({
 dotenv::load_dot_env(file = ".env")
 
 # Source modules
-# source('file')
+# source("file")
 
 # Define args interactively or accept commandArgs
 if(interactive()){
-  .args <-  c('input',
-              'output')
+  .args <-  c("input",
+              "output")
 } else {
   .args <- commandArgs(trailingOnly = T)
 }
@@ -27,11 +27,11 @@ if(interactive()){
 ggsave(tail(.args, 1),
        p,
        width = 8.5, height = 6,
-       units = 'in')
+       units = "in")
 
 # Save idenfitcal pdf image
-ggsave(gsub('.png', '.pdf', tail(.args, 1)),
+ggsave(gsub(".png", ".pdf", tail(.args, 1)),
        p,
        width = 8.5, height = 6,
-       units = 'in',
+       units = "in",
        useDingbats = F)

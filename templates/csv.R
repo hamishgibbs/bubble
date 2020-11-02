@@ -9,12 +9,12 @@ suppressPackageStartupMessages({
 dotenv::load_dot_env(file = ".env")
 
 # Source modules
-# source('file')
+# source("file")
 
 # Define args interactively or accept commandArgs
 if(interactive()){
-  .args <-  c('input',
-              'output')
+  .args <-  c("input",
+              "output")
 } else {
   .args <- commandArgs(trailingOnly = T)
 }
