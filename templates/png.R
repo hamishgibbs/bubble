@@ -29,7 +29,7 @@ ggsave(tail(.args, 1),
        width = 8.5, height = 6,
        units = "in")
 
-# Save idenfitcal pdf image
+# Save identical pdf image
 ggsave(gsub(".png", ".pdf", tail(.args, 1)),
        p,
        width = 8.5, height = 6,
