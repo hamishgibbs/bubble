@@ -4,10 +4,12 @@ def templates():
     return(
         {'R': {'csv': r_csv,
                'png': r_png,
-               'module': r_module},
+               'module': r_module,
+               'makefile': makefile},
         'PYTHON': {'csv': py_csv,
                    'png': py_png,
-                   'module': py_module}}
+                   'module': py_module,
+                   'makefile': makefile}}
     )
 
 
@@ -201,4 +203,22 @@ def py_module():
      def f():
          return(1)
      """
+    )
+
+def makefile():
+    '''R and Python Makefile template'''
+
+    return(
+        """# Python interpreter
+        PYTHON_INTERPRETER = python3
+
+        # R interpreter
+        R_INTERPRETER = /usr/local/bin/Rscript
+
+        # Search for .env file variables
+        ifneq (,$(wildcard ./.env))
+            include .env
+            export
+        endif
+        """
     )

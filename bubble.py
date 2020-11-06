@@ -5,18 +5,17 @@ import re
 from template import templates
 import textwrap
 
-# VERY SIMPLE
+# SHOULD BE VERY SIMPLE
 
 resource_package = __name__
-
-#be careful of overwriting files
 
 @click.command()
 @click.option('-f', '--file', help='File path.')
 @click.option('-t', '--template', help='Type of template.')
 @click.option('-m', '--make_target', help='Generate a Makefile target.', is_flag=True)
+@click.option('-d', '--dockerfile', help='Generate a Dockerfile.')
 # @click.option('-f', '--file', help='File to be parsed.')
-def cli(file=None, template=None, make_target=None):
+def cli(file=None, template=None, make_target=None, dockerfile=None):
     """Entry point for the bubble cli."""
 
     # User must specify a template
@@ -32,6 +31,10 @@ def cli(file=None, template=None, make_target=None):
 
         create_make_target(file)
 
+    elif file is None and make_target is not None:
+
+        scaffold('Makefile', 'makefile')
+
     else:
 
         raise ValueError('Unknown input.')
@@ -41,7 +44,7 @@ def cli(file=None, template=None, make_target=None):
 def scaffold(file, template):
     '''Function to scaffold a file from a template'''
 
-    if template not in ['csv', 'png', 'module']:
+    if template not in ['csv', 'png', 'module', 'makefile']:
 
         raise ValueError('Unknown template. Specify csv, png, or module.')
 
@@ -54,8 +57,7 @@ def scaffold(file, template):
     # Prompt to overwrite an existing file
     if os.path.exists(file):
 
-        overwrite = input('Found an existing file at %s. \nDo you \
-        want to overwrite this file? (Y/n)' % file)
+        overwrite = input('Found an existing file at %s.\nDo you want to overwrite this file? (Y/n)' % file)
 
         if overwrite != 'Y':
 
@@ -80,6 +82,12 @@ def scaffold(file, template):
 
 def language(file):
     '''Get language from a file extension'''
+
+    # Return arbitrary language for Makefile template
+    # this will have to change for >1 makefile template
+    if 'Makefile' in file:
+
+        return('PYTHON')
 
     # Split filename string at ".", select end element
     extension = file.split('.')[-1]
@@ -250,7 +258,7 @@ def exiting_target_index(file, target_name, makefile_lines):
 
     Identifies start of target at `NAME:`
 
-    Identifies end of target at `$(LANGUAGE_INTERPRETER) $^ $@`
+    Identifies end of target at `$([LANGUAGE]_INTERPRETER) $^ $@`
     '''
 
     # Match target expression in Makefile
@@ -278,8 +286,6 @@ def remove_existing_target(makefile_lines, start, end):
 def flatten(list):
 
     return [item for sublist in list for item in sublist]
-
-
 
 if __name__ == '__main__':
 
