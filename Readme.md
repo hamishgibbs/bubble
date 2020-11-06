@@ -1,8 +1,8 @@
 # Bubble
 
-CLI tool for scaffolding research projects.
+CLI for scaffolding research projects.
 
-Python CLI with click
+Decrease the time between the thought and the plot.
 
 Add climate and travis
 
@@ -10,6 +10,7 @@ Add climate and travis
 * I don't like doing repetitive things
 * I don't test my code very often
 * I am slow to add Makefile targets
+* Setting up docker is a pain
 * I use absolute file paths
 
 ### Features:
