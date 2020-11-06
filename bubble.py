@@ -4,8 +4,10 @@ import pkg_resources
 import re
 from template import templates
 import textwrap
+import random
 
 # SHOULD BE VERY SIMPLE
+# choose from a selection of emojis for success
 
 resource_package = __name__
 
@@ -72,7 +74,7 @@ def scaffold(file, template):
             f.write(b'# -- Template by bubble with <3. --\n\n' + template)
 
         # Success message
-        print('Successfully created %s.' % file)
+        print('Successfully created %s. %s' % (file, random_success()))
 
     except:
 
@@ -219,7 +221,7 @@ def create_make_target(file, index = None):
 
         m.write(makefile_content)
 
-    print('Successfully updated Makefile target "%s".' % target_name)
+    print('%s Successfully updated Makefile target "%s". %s' % (target_name, random_success()))
 
 
 def capture_args_r(file_lines):
@@ -282,6 +284,14 @@ def remove_existing_target(makefile_lines, start, end):
 
     # Delete lines between index from the makefile
     del makefile_lines[start:end]
+
+
+def random_success():
+
+    success = ['\U0001F973', '\U0001F382', '\U0001F942', '\U0001F389', '\U0001F38A']
+
+    return(random.choice(success))
+
 
 def flatten(list):
 
