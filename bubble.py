@@ -7,7 +7,6 @@ import textwrap
 import random
 
 # SHOULD BE VERY SIMPLE
-# choose from a selection of emojis for success
 
 resource_package = __name__
 
@@ -16,12 +15,17 @@ resource_package = __name__
 @click.option('-t', '--template', help='Type of template.')
 @click.option('-m', '--make_target', help='Generate a Makefile target.', is_flag=True)
 @click.option('-d', '--dockerfile', help='Generate a Dockerfile.')
+@click.option('-p', '--project', help='Generate a project.')
 # @click.option('-f', '--file', help='File to be parsed.')
-def cli(file=None, template=None, make_target=None, dockerfile=None):
+def cli(file=None, template=None, make_target=None, dockerfile=None, project=None):
     """Entry point for the bubble cli."""
 
     # User must specify a template
-    if template is None and make_target is None:
+    if project is not None:
+
+        new_project(project)
+
+    elif template is None and make_target is None:
 
         raise ValueError('Please specify an action: -t template, -m makefile target.')
 
@@ -33,25 +37,32 @@ def cli(file=None, template=None, make_target=None, dockerfile=None):
 
         create_make_target(file)
 
-    elif file is None and make_target is not None:
+    elif file is None and make_target is not None and dockerfile is None:
 
         scaffold('Makefile', 'makefile')
+
+    elif dockerfile is not None:
+
+        new_dockerfile(dockerfile)
 
     else:
 
         raise ValueError('Unknown input.')
 
 
-
-def scaffold(file, template):
+def scaffold(file, template, lang = None):
     '''Function to scaffold a file from a template'''
 
-    if template not in ['csv', 'png', 'module', 'makefile']:
+    if template not in ['csv', 'png', 'module', 'makefile', 'dockerfile']:
 
-        raise ValueError('Unknown template. Specify csv, png, or module.')
+        raise ValueError('Unknown template. Specify csv, png, module, makefile, or dockerfile.')
+
+    if lang is None:
+
+        lang = language(file)
 
     # Access the appropriate template generator by langauge and template name
-    template = templates()[language(file)][template]
+    template = templates()[lang][template]
 
     # Replace leading whitespace characters in block string, encode as bytes
     template = template().replace('        ', '').encode()
@@ -108,6 +119,91 @@ def language(file):
     else:
 
         raise ValueError('Unknown file extension .%' % extension)
+
+
+def new_project(project):
+    '''Function to scaffold a new project from scratch'''
+
+    proj_name = os.getcwd().split('/')[-1]
+
+    os.mkdir('src')
+    os.mkdir('src/data')
+    os.mkdir('src/analysis')
+    os.mkdir('src/vis')
+
+    os.mkdir('data')
+    os.mkdir('data/raw')
+    os.mkdir('data/interim')
+    os.mkdir('data/processed')
+
+    os.mkdir('output')
+    os.mkdir('output/figs')
+
+    scaffold('Makefile', 'makefile')
+
+    new_dockerfile(project)
+
+    print('Successfully created project %s. %s' % (proj_name, random_success()))
+
+
+def new_dockerfile(dockerfile):
+
+    scaffold('Dockerfile', 'dockerfile', dockerfile)
+
+    proj_name = os.getcwd().split('/')[-1]
+
+    # Check that Makefile exists in PWD
+    if not os.path.exists('Makefile'):
+
+        raise FileNotFoundError('No Makefile found in current directory.')
+
+    # Read makefile lines
+    with open('Makefile') as m:
+
+        makefile_lines = m.readlines()
+
+    insert_index = [i + 5 for i, x in enumerate(makefile_lines) if x == 'ifneq (,$(wildcard ./.env))\n']
+
+    if dockerfile == 'PYTHON':
+
+        target = dockerfile_target_py(proj_name)
+
+    elif dockerfile == 'R':
+
+        target = dockerfile_target_r(proj_name)
+
+    else:
+
+        raise ValueError('Unknown dockerfile language. Please choose PYTHON or R')
+
+    makefile_lines.insert(insert_index[0], target)
+
+    makefile_content = ''.join(makefile_lines)
+
+    with open('Makefile', 'w') as m:
+
+        m.write(makefile_content)
+
+    # Success message
+    print('Successfully added makefile targets. %s' % random_success())
+
+
+def dockerfile_target_py(proj_name):
+
+    build = 'build:\n\tdocker build . -t %s\n\n' % proj_name
+
+    bash = 'bash:\n\tdocker run -it --rm --mount type=bind,source=${PWD},target=/usr/proj/ %s bash\n\n' % proj_name
+
+    return(build + bash)
+
+
+def dockerfile_target_r(proj_name):
+
+    build = 'build:\n\tdocker build . -t %s\n\n' % proj_name
+
+    up = 'up:\n\tdocker run -d -p 8787:8787 --mount type=bind,source=${PWD},target=/usr/proj/ --name %s -e USER=%s -e PASSWORD=%s %s\n\n' % (proj_name, proj_name, proj_name, proj_name)
+
+    return(build + up)
 
 
 def create_make_target(file, index = None):
@@ -221,7 +317,7 @@ def create_make_target(file, index = None):
 
         m.write(makefile_content)
 
-    print('%s Successfully updated Makefile target "%s". %s' % (target_name, random_success()))
+    print('Successfully updated Makefile target "%s". %s' % (target_name, random_success()))
 
 
 def capture_args_r(file_lines):
@@ -288,7 +384,7 @@ def remove_existing_target(makefile_lines, start, end):
 
 def random_success():
 
-    success = ['\U0001F973', '\U0001F382', '\U0001F942', '\U0001F389', '\U0001F38A']
+    success = ['\U0001F973', '\U0001F382', '\U0001F37E', '\U0001F389', '\U0001F38A']
 
     return(random.choice(success))
 

@@ -5,11 +5,13 @@ def templates():
         {'R': {'csv': r_csv,
                'png': r_png,
                'module': r_module,
-               'makefile': makefile},
+               'makefile': makefile,
+               'dockerfile': r_dockerfile},
         'PYTHON': {'csv': py_csv,
                    'png': py_png,
                    'module': py_module,
-                   'makefile': makefile}}
+                   'makefile': makefile,
+                   'dockerfile': py_dockerfile}}
     )
 
 
@@ -111,6 +113,20 @@ def r_module():
         }"""
     )
 
+def r_dockerfile():
+    '''R dockerfile template'''
+
+    return(
+        """
+        FROM rocker/verse:latest
+
+        ADD . /home/rstudio/proj
+
+        WORKDIR /home/rstudio/proj
+
+        RUN Rscript -e "install.packages('tidyverse')"
+        """
+    )
 
 def py_png():
     '''Python PNG template'''
@@ -203,6 +219,31 @@ def py_module():
      def f():
          return(1)
      """
+    )
+
+
+def py_dockerfile():
+    '''Python dockerfile template'''
+
+    return(
+        """
+        # Using slim python 3.8 container
+        FROM python:3.8-slim
+
+        COPY requirements.txt ./
+
+        # Install python dependencies
+        RUN pip install --no-cache-dir -r requirements.txt
+
+        # Install make
+        RUN apt-get update && apt-get install make
+
+        # Set working directory
+        WORKDIR /usr/proj
+
+        # Copy all files to container
+        COPY . .
+        """
     )
 
 def makefile():
