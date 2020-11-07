@@ -1,8 +1,8 @@
 # Bubble
 
-CLI for scaffolding research projects.
-
 Decrease the time between the thought and the plot.
+
+CLI for scaffolding research projects.
 
 Add climate and travis
 
