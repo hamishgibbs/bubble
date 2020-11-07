@@ -1,13 +1,8 @@
 import os
 import click
-import pkg_resources
-import re
-from template import templates
 from dockerfile import new_dockerfile
 from utils import scaffold, random_success
 from makefile import create_make_target
-import textwrap
-import random
 
 # SHOULD BE VERY SIMPLE
 
