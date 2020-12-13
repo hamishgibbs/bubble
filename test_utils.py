@@ -1,4 +1,4 @@
-from utils import language
+from bubble.utils import language
 
 class TestLanguage():
     '''Test language extraction from file extansion'''
