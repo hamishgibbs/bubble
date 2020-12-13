@@ -1,6 +1,6 @@
 import os
 import re
-from utils import language, flatten, random_success
+from bubble.utils import language, flatten, random_success
 
 
 def create_make_target(file, index = None):

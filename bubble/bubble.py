@@ -1,8 +1,8 @@
 import os
 import click
-from dockerfile import new_dockerfile
-from utils import scaffold, random_success
-from makefile import create_make_target
+from bubble.dockerfile import new_dockerfile
+from bubble.utils import scaffold, random_success
+from bubble.makefile import create_make_target
 
 # SHOULD BE VERY SIMPLE
 
@@ -52,6 +52,9 @@ def new_project(project):
     '''Function to scaffold a new project from scratch'''
 
     proj_name = os.getcwd().split('/')[-1]
+
+    if project == 'PYTHON':
+        open('requirements.txt', '').close()
 
     os.mkdir('src')
     os.mkdir('src/data')

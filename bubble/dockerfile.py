@@ -1,5 +1,5 @@
 import os
-from utils import scaffold, random_success
+from bubble.utils import scaffold, random_success
 
 
 def new_dockerfile(dockerfile):

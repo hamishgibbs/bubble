@@ -1,6 +1,7 @@
 import os
 import random
-from template import templates
+from bubble.template import templates
+
 
 def scaffold(file, template, lang = None):
     '''Function to scaffold a file from a template'''
