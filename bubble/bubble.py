@@ -1,79 +1,50 @@
 import os
+import sys
+from pathlib import Path
 import click
 from bubble.dockerfile import new_dockerfile
-from bubble.utils import scaffold, random_success
+from bubble.template import templates
+from bubble.utils import scaffold, language
 from bubble.makefile import create_make_target
 
 # SHOULD BE VERY SIMPLE
 
 resource_package = __name__
 
-@click.command()
-@click.option('-f', '--file', help='File path.')
-@click.option('-t', '--template', help='Type of template.')
-@click.option('-m', '--make_target', help='Generate a Makefile target.', is_flag=True)
-@click.option('-d', '--dockerfile', help='Generate a Dockerfile.')
-@click.option('-p', '--project', help='Generate a project.')
-# @click.option('-f', '--file', help='File to be parsed.')
-def cli(file=None, template=None, make_target=None, dockerfile=None, project=None):
+
+@click.group()
+def cli():
     """Entry point for the bubble cli."""
 
-    # User must specify a template
-    if project is not None:
 
-        new_project(project)
+@cli.command()
+@click.option("-root",
+              "--root",
+              default=os.getcwd(),
+              help='Specify project root.')
+def init(root: str = os.getcwd()):
 
-    elif template is None and make_target is None:
+    with open(root + '/bubble.json', 'w') as f:
 
-        raise ValueError('Please specify an action: -t template, -m makefile target.')
-
-    elif file is not None and template is not None:
-
-        scaffold(file, template)
-
-    elif file is not None and make_target is not None:
-
-        create_make_target(file)
-
-    elif file is None and make_target is not None and dockerfile is None:
-
-        scaffold('Makefile', 'makefile')
-
-    elif dockerfile is not None:
-
-        new_dockerfile(dockerfile)
-
-    else:
-
-        raise ValueError('Unknown input.')
+        f.write('{"extensions":[".py", ".R"], "watch_dirs":["src"]}')
 
 
-def new_project(project):
-    '''Function to scaffold a new project from scratch'''
+@cli.command()
+@click.option("-f",
+              "--file",
+              help='File to create.')
+@click.option("-t",
+              "--tag",
+              help='Omit bubble file tag.',
+              is_flag=True)
+def create(file: str,
+           tag: bool):
 
-    proj_name = os.getcwd().split('/')[-1]
+    template = templates()[language(file)]
 
-    if project == 'PYTHON':
-        open('requirements.txt', '').close()
+    scaffold(file, template, tag)
 
-    os.mkdir('src')
-    os.mkdir('src/data')
-    os.mkdir('src/analysis')
-    os.mkdir('src/vis')
 
-    os.mkdir('data')
-    os.mkdir('data/raw')
-    os.mkdir('data/interim')
-    os.mkdir('data/processed')
-
-    os.mkdir('output')
-    os.mkdir('output/figs')
-
-    scaffold('Makefile', 'makefile')
-
-    new_dockerfile(project)
-
-    print('Successfully created project %s. %s' % (proj_name, random_success()))
 
 if __name__ == '__main__':
 

@@ -1,24 +1,12 @@
 import os
 import random
-from bubble.template import templates
 
 
-def scaffold(file, template, lang = None):
+def scaffold(file, template, tag=None):
     '''Function to scaffold a file from a template'''
 
-    if template not in ['csv', 'png', 'module', 'makefile', 'dockerfile']:
-
-        raise ValueError('Unknown template. Specify csv, png, module, makefile, or dockerfile.')
-
-    if lang is None:
-
-        lang = language(file)
-
-    # Access the appropriate template generator by langauge and template name
-    template = templates()[lang][template]
-
     # Replace leading whitespace characters in block string, encode as bytes
-    template = template().replace('        ', '').encode()
+    template = template.replace('        ', '')
 
     # Prompt to overwrite an existing file
     if os.path.exists(file):
@@ -32,15 +20,19 @@ def scaffold(file, template, lang = None):
 
     try:
 
-        # Write template to file with bubble header.
-        with open(file, 'wb') as f:
+        if tag:
 
-            f.write(b'# -- Template by bubble with <3. --\n\n' + template)
+            template = '# -- Template by bubble with <3. --\n\n' + template
+
+        # Write template to file with bubble header.
+        with open(file, 'w') as f:
+
+            f.write(template)
 
         # Success message
         print('Successfully created %s. %s' % (file, random_success()))
 
-    except:
+    except Exception:
 
         # Raise exception for any issues writing template to file
         raise Exception('Unable to write new file %s/' % file)
@@ -61,12 +53,12 @@ def language(file):
     # Identify R files with ".r" or ".R" extension
     if extension in ['r', 'R']:
 
-        return('R')
+        return('r')
 
     # Identify Python files with ".py" extension
     elif extension in ['py']:
 
-        return('PYTHON')
+        return('py')
 
     # Raise error for unknown file extensions
     else:
