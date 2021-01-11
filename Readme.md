@@ -1,6 +1,6 @@
 # Bubble
 
-[![GitHub Actions (Tests)](https://github.com/hamishgibbs/bubble/workflows/Tests/badge.svg)]
+![GitHub Actions (Tests)](https://github.com/hamishgibbs/bubble/workflows/Tests/badge.svg)
 
 Decrease the time between the thought and the plot.
 
