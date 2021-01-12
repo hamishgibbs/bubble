@@ -1,46 +1,31 @@
 import os
+import json
 import random
-from bubble.template import templates
 
 
-def scaffold(file, template, lang = None):
+def scaffold(file, template, tag=None):
     '''Function to scaffold a file from a template'''
 
-    if template not in ['csv', 'png', 'module', 'makefile', 'dockerfile']:
-
-        raise ValueError('Unknown template. Specify csv, png, module, makefile, or dockerfile.')
-
-    if lang is None:
-
-        lang = language(file)
-
-    # Access the appropriate template generator by langauge and template name
-    template = templates()[lang][template]
-
     # Replace leading whitespace characters in block string, encode as bytes
-    template = template().replace('        ', '').encode()
+    template = template.replace('        ', '')
 
-    # Prompt to overwrite an existing file
-    if os.path.exists(file):
-
-        overwrite = input('Found an existing file at %s.\nDo you want to overwrite this file? (Y/n)' % file)
-
-        if overwrite != 'Y':
-
-            print('Stopping.')
-            exit()
+    prompt_for_file_overwrite(file)
 
     try:
 
-        # Write template to file with bubble header.
-        with open(file, 'wb') as f:
+        if tag:
 
-            f.write(b'# -- Template by bubble with <3. --\n\n' + template)
+            template = '# -- Template by bubble with <3. --\n\n' + template
+
+        # Write template to file with bubble header.
+        with open(file, 'w') as f:
+
+            f.write(template)
 
         # Success message
         print('Successfully created %s. %s' % (file, random_success()))
 
-    except:
+    except Exception:
 
         # Raise exception for any issues writing template to file
         raise Exception('Unable to write new file %s/' % file)
@@ -53,7 +38,7 @@ def language(file):
     # this will have to change for >1 makefile template
     if 'Makefile' in file:
 
-        return('PYTHON')
+        return('makefile')
 
     # Split filename string at ".", select end element
     extension = file.split('.')[-1]
@@ -61,17 +46,56 @@ def language(file):
     # Identify R files with ".r" or ".R" extension
     if extension in ['r', 'R']:
 
-        return('R')
+        return('r')
 
     # Identify Python files with ".py" extension
     elif extension in ['py']:
 
-        return('PYTHON')
+        return('py')
 
     # Raise error for unknown file extensions
     else:
 
-        raise ValueError('Unknown file extension .%' % extension)
+        raise ValueError('Unknown file extension %s.' % extension)
+
+
+def prompt_for_file_overwrite(file: str):
+
+    # Prompt to overwrite an existing file
+    if os.path.exists(file):
+
+        overwrite = input('Found an existing file at %s.\nDo you want to overwrite this file? (Y/n) ' % file)
+
+        if overwrite != 'Y':
+
+            print('Stopping.')
+            exit()
+
+
+def write_bubble_config(root: str):
+
+    fn = root + '/bubble.json'
+
+    prompt_for_file_overwrite(fn)
+
+    with open(fn, 'w') as f:
+
+        json.dump({"extensions": [".py", ".R"], "watch_dirs": ["src"]}, f)
+
+
+def get_bubble_config(root: str = os.getcwd()):
+
+    try:
+
+        with open(root + '/bubble.json', 'r') as f:
+
+            config = json.load(f)
+
+    except Exception as e:
+
+        raise e
+
+    return config
 
 
 def random_success():
