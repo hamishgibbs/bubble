@@ -108,8 +108,6 @@ def update_makefile(new_targets: list,
 
     target_index = [i for i, x in enumerate(makefile_lines) if target_start_str in x][0]
 
-    print(target_index)
-
     makefile_content = makefile_lines[:(target_index + 1)]
 
     new_targets_content = [x['content'] for x in new_targets]
