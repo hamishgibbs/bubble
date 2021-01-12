@@ -1,6 +1,6 @@
 import os
 import re
-from bubble.utils import language, flatten, random_success
+from bubble import utils
 
 
 def should_be_made(fn):
@@ -51,8 +51,8 @@ def find_files_to_be_made(path,
 
 
 def get_bubble_template_dependencies(fn,
-                                     input_start_str = '# *** bubble input start ***',
-                                     input_end_str = '# *** bubble input end ***'):
+                                     input_start_str='# *** bubble input start ***',
+                                     input_end_str='# *** bubble input end ***'):
     # get deps from a file - last will be output
 
     with open(fn, 'r') as f:
@@ -69,12 +69,12 @@ def get_bubble_template_dependencies(fn,
 
     deps = [x for x in deps if x not in [[], ['null'], ['__file__']]]
 
-    return flatten(deps)
+    return utils.flatten(deps)
 
 
 def make_target(fn,
-                input_start_str = '# *** bubble input start ***',
-                input_end_str = '# *** bubble input end ***'):
+                input_start_str='# *** bubble input start ***',
+                input_end_str='# *** bubble input end ***'):
 
     deps = get_bubble_template_dependencies(fn, input_start_str, input_end_str)
 
@@ -102,7 +102,7 @@ def update_makefile(new_targets: list,
 
         raise FileNotFoundError('No Makefile found in current directory.')
 
-    with open('Makefile') as m:
+    with open(root + '/Makefile') as m:
 
         makefile_lines = m.readlines()
 
@@ -116,8 +116,8 @@ def update_makefile(new_targets: list,
 
     makefile_content = ''.join(makefile_content) + ''.join(new_targets_content)
 
-    with open('Makefile', 'w') as m:
+    with open(root + '/Makefile', 'w') as m:
 
         m.write(makefile_content)
 
-    print('Successfully updated %i Makefile targets. %s' % (len(new_targets), random_success()))
+    print('Successfully updated %i Makefile targets. %s' % (len(new_targets), utils.random_success()))

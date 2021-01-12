@@ -34,6 +34,16 @@ def test_language_makefile():
 
     assert utils.language(path) == 'makefile'
 
+
+def test_language_raises():
+    '''Test language extraction from Python file'''
+
+    path = 'file.xml'
+
+    with pytest.raises(ValueError):
+        utils.language(path)
+
+
 def test_language_abs():
     '''Test language extraction from absolute path file'''
 
@@ -46,17 +56,18 @@ def test_scaffold(tmp_dir):
 
     fn = tmp_dir + '/test_scaffold.py'
 
-    utils.scaffold(fn, 'test')
+    utils.scaffold(fn, 'test', True)
 
     assert os.path.exists(fn)
 
 
 def test_scaffold_raises(tmp_dir):
 
-    fn = tmp_dir + '/test_scaffold.py'
+    fn = tmp_dir + '/src/test_scaffold.py'
 
     with pytest.raises(Exception):
-        utils.scaffold(fn, b'test')
+
+        utils.scaffold(fn, 'test')
 
 
 def test_get_bubble_config(tmp_dir):

@@ -2,7 +2,8 @@ import os
 from pathlib import Path
 import pytest
 from bubble import makefile
-
+from bubble import utils
+from bubble import template
 
 @pytest.fixture(scope="session")
 def tmp_dir(tmpdir_factory):
@@ -74,3 +75,18 @@ def test_get_bubble_template_dependencies(tmp_dir):
     assert type(res) is list
 
     assert len(res) == 3
+
+
+def test_update_makefile(tmp_dir):
+
+    utils.scaffold(tmp_dir + '/Makefile', template.makefile())
+
+    assert os.path.exists(tmp_dir + '/Makefile')
+
+    makefile.update_makefile([{'name':'test', 'content':'input'}], tmp_dir)
+
+    with open(tmp_dir + '/Makefile', 'r') as f:
+
+        content = f.read()
+
+    assert 'input' in content

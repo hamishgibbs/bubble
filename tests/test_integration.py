@@ -12,6 +12,15 @@ def tmp_dir(tmpdir_factory):
     return str(path)
 
 
+def test_cli(tmp_dir):
+
+    runner = CliRunner()
+
+    res = runner.invoke(bubble.cli)
+
+    assert res.exit_code == 0
+
+
 def test_init_project(tmp_dir):
 
     os.mkdir(tmp_dir + '/src')

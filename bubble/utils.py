@@ -9,15 +9,7 @@ def scaffold(file, template, tag=None):
     # Replace leading whitespace characters in block string, encode as bytes
     template = template.replace('        ', '')
 
-    # Prompt to overwrite an existing file
-    if os.path.exists(file):
-
-        overwrite = input('Found an existing file at %s.\nDo you want to overwrite this file? (Y/n)' % file)
-
-        if overwrite != 'Y':
-
-            print('Stopping.')
-            exit()
+    prompt_for_file_overwrite(file)
 
     try:
 

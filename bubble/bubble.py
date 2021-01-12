@@ -1,7 +1,5 @@
 import os
-import json
 import click
-from bubble.dockerfile import new_dockerfile
 from bubble.template import templates
 from bubble import utils
 from bubble import makefile
