@@ -46,7 +46,7 @@ def language(file):
     # this will have to change for >1 makefile template
     if 'Makefile' in file:
 
-        return('PYTHON')
+        return('makefile')
 
     # Split filename string at ".", select end element
     extension = file.split('.')[-1]
@@ -64,7 +64,7 @@ def language(file):
     # Raise error for unknown file extensions
     else:
 
-        raise ValueError('Unknown file extension .%' % extension)
+        raise ValueError('Unknown file extension %s.' % extension)
 
 
 def prompt_for_file_overwrite(file: str):

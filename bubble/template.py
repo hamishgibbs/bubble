@@ -62,7 +62,7 @@ def py():
         # *** bubble input start ***
         # Define args interactively or accept commandArgs
         if not hasattr(main, "__file__"):
-            argv = ["code",
+            argv = ["null",
                     "input",
                     "output"]
         else:
@@ -86,5 +86,7 @@ def makefile():
             include .env
             export
         endif
+
+        # *** bubble target start ***
         """
     )

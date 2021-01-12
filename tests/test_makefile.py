@@ -63,7 +63,7 @@ def test_get_bubble_template_dependencies(tmp_dir):
 
     fn = tmp_dir + '/make_test_input.py'
 
-    file_content = '# *** bubble input start ***\n"input","input",\n"output"\n# *** bubble input end ***'
+    file_content = '# *** bubble input start ***\n"input1",\n"input2",\n"output"\n# *** bubble input end ***'
 
     with open(fn, 'w') as f:
 

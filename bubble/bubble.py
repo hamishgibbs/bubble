@@ -57,10 +57,11 @@ def make(root: str = os.getcwd()):
 
     for extension in config['extensions']:
 
-        make_files = [makefile.find_files_to_be_made(path, extension) for path in watch_dirs]
+        make_files.append(utils.flatten([makefile.find_files_to_be_made(path, extension) for path in watch_dirs]))
 
-        print([makefile.make_target(x) for x in utils.flatten(make_files)])
+    new_targets = [makefile.make_target(x) for x in utils.flatten(make_files)]
 
+    makefile.update_makefile(new_targets, root)
 
 
 if __name__ == '__main__':

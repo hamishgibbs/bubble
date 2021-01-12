@@ -27,6 +27,13 @@ def test_language_py():
     assert utils.language(path) == 'py'
 
 
+def test_language_makefile():
+    '''Test language extraction from Python file'''
+
+    path = 'Makefile'
+
+    assert utils.language(path) == 'makefile'
+
 def test_language_abs():
     '''Test language extraction from absolute path file'''
 
