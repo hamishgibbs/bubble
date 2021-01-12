@@ -41,7 +41,7 @@ def find_files(path: str = os.getcwd(),
 def find_files_to_be_made(path,
                           extension):
 
-    files = find_files(path)
+    files = find_files(path, extension)
 
     need_making = [should_be_made(fn) for fn in files]
 

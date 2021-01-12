@@ -1,11 +1,10 @@
 import os
-import sys
-from pathlib import Path
+import json
 import click
 from bubble.dockerfile import new_dockerfile
 from bubble.template import templates
-from bubble.utils import scaffold, language
-from bubble.makefile import create_make_target
+from bubble import utils
+from bubble import makefile
 
 # SHOULD BE VERY SIMPLE
 
@@ -24,9 +23,7 @@ def cli():
               help='Specify project root.')
 def init(root: str = os.getcwd()):
 
-    with open(root + '/bubble.json', 'w') as f:
-
-        f.write('{"extensions":[".py", ".R"], "watch_dirs":["src"]}')
+    utils.write_bubble_config(root)
 
 
 @cli.command()
@@ -40,9 +37,29 @@ def init(root: str = os.getcwd()):
 def create(file: str,
            tag: bool):
 
-    template = templates()[language(file)]
+    template = templates()[utils.language(file)]
 
-    scaffold(file, template, tag)
+    utils.scaffold(file, template, tag)
+
+
+@cli.command()
+@click.option("-root",
+              "--root",
+              default=os.getcwd(),
+              help='Specify project root.')
+def make(root: str = os.getcwd()):
+
+    config = utils.get_bubble_config(root)
+
+    watch_dirs = [root + '/' + path for path in config['watch_dirs']]
+
+    make_files = []
+
+    for extension in config['extensions']:
+
+        make_files = [makefile.find_files_to_be_made(path, extension) for path in watch_dirs]
+
+        print([makefile.make_target(x) for x in utils.flatten(make_files)])
 
 
 

@@ -1,6 +1,6 @@
 import os
 import pytest
-from bubble.utils import language, scaffold
+from bubble import utils
 
 
 @pytest.fixture(scope="session")
@@ -11,36 +11,35 @@ def tmp_dir(tmpdir_factory):
     return str(path)
 
 
-class TestLanguage():
-    '''Test language extraction from file extansion'''
+def test_language_r():
+    '''Test language extraction from R file'''
 
-    def test_language_r(self):
-        '''Test language extraction from R file'''
+    path = 'file.R'
 
-        path = 'file.R'
+    assert utils.language(path) == 'r'
 
-        assert language(path) == 'r'
 
-    def test_language_py(self):
-        '''Test language extraction from Python file'''
+def test_language_py():
+    '''Test language extraction from Python file'''
 
-        path = 'file.py'
+    path = 'file.py'
 
-        assert language(path) == 'py'
+    assert utils.language(path) == 'py'
 
-    def test_language_abs(self):
-        '''Test language extraction from absolute path file'''
 
-        path = '/usr/anyone/file.R'
+def test_language_abs():
+    '''Test language extraction from absolute path file'''
 
-        assert language(path) == 'r'
+    path = '/usr/anyone/file.R'
+
+    assert utils.language(path) == 'r'
 
 
 def test_scaffold(tmp_dir):
 
     fn = tmp_dir + '/test_scaffold.py'
 
-    scaffold(fn, 'test')
+    utils.scaffold(fn, 'test')
 
     assert os.path.exists(fn)
 
@@ -50,4 +49,21 @@ def test_scaffold_raises(tmp_dir):
     fn = tmp_dir + '/test_scaffold.py'
 
     with pytest.raises(Exception):
-        scaffold(fn, b'test')
+        utils.scaffold(fn, b'test')
+
+
+def test_get_bubble_config(tmp_dir):
+
+    utils.write_bubble_config(tmp_dir)
+
+    res = utils.get_bubble_config(tmp_dir)
+
+    assert type(res) is dict
+
+
+def test_get_bubble_config_raises(tmp_dir):
+
+    os.remove(tmp_dir + '/bubble.json')
+
+    with pytest.raises(FileNotFoundError):
+        utils.get_bubble_config(tmp_dir)

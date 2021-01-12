@@ -1,4 +1,5 @@
 import os
+import json
 import random
 
 
@@ -64,6 +65,45 @@ def language(file):
     else:
 
         raise ValueError('Unknown file extension .%' % extension)
+
+
+def prompt_for_file_overwrite(file: str):
+
+    # Prompt to overwrite an existing file
+    if os.path.exists(file):
+
+        overwrite = input('Found an existing file at %s.\nDo you want to overwrite this file? (Y/n) ' % file)
+
+        if overwrite != 'Y':
+
+            print('Stopping.')
+            exit()
+
+
+def write_bubble_config(root: str):
+
+    fn = root + '/bubble.json'
+
+    prompt_for_file_overwrite(fn)
+
+    with open(fn, 'w') as f:
+
+        json.dump({"extensions": [".py", ".R"], "watch_dirs": ["src"]}, f)
+
+
+def get_bubble_config(root: str = os.getcwd()):
+
+    try:
+
+        with open(root + '/bubble.json', 'r') as f:
+
+            config = json.load(f)
+
+    except Exception as e:
+
+        raise e
+
+    return config
 
 
 def random_success():
