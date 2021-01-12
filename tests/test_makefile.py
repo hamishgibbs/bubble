@@ -90,3 +90,14 @@ def test_update_makefile(tmp_dir):
         content = f.read()
 
     assert 'input' in content
+
+
+def test_update_makefile_raises(tmp_dir):
+
+    assert os.path.exists(tmp_dir + '/Makefile')
+
+    os.remove(tmp_dir + '/Makefile')
+
+    with pytest.raises(FileNotFoundError):
+
+        makefile.update_makefile([{'name':'test', 'content':'input'}], tmp_dir)
