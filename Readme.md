@@ -43,7 +43,7 @@ Extract the dependencies from this file and update the Makefile at the project r
  bubble makefile
  ```
 
-`Successfully updated 1 Makefile targets. :tada:`
+`Successfully updated 1 Makefile targets. 🎂`
 
 Success! You should see a summary of the targets that have been updated.
 
