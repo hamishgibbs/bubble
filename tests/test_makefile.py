@@ -5,6 +5,7 @@ from bubble import makefile
 from bubble import utils
 from bubble import template
 
+
 @pytest.fixture(scope="session")
 def tmp_dir(tmpdir_factory):
 
