@@ -8,7 +8,7 @@ A Python CLI for scaffolding research projects.
 
 ### Features:
 
-* Scaffold Python and R files for easy input/output and interactive coding
+* Scaffold Python and R files to support command line arguments and interactive coding
 * Parse a bubble template file to generate Makefile targets
 
 ### Quickstart:
