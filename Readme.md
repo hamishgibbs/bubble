@@ -2,7 +2,7 @@
 
 ![GitHub Actions (Tests)](https://github.com/hamishgibbs/bubble/workflows/Tests/badge.svg)
 
-Automate your automation.
+Automate your makefile automation.
 
 A Python CLI for scaffolding research projects.
 
