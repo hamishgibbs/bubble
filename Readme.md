@@ -67,7 +67,7 @@ Options:
 
 Options:
 
-*-f* *(--file)*: Path of a file to create. Accepts `Makefile`, `*.py`, and `*.R` files.
+*-f* *(--file)*: Path of a file to create. Accepts `Makefile`, `*.py`, and `*.R` files.  
 *-t* *(--tag)*: Omit the bubble file tag. Files are tagged by default.
 
 #### make
