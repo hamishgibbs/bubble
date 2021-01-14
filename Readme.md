@@ -82,4 +82,17 @@ Options:
 
 Contributions are welcome. If you encounter problems while using this library, please [open an issue.](https://github.com/hamishgibbs/bubble/issues/new)
 
+# How it works
+
+This is a simple library with a limited scope. It is intended to take dependencies specified in code files and move them to a makefile to make it simple to automate the creation of research (or other) outputs.
+
+`bubble` decides whether Makefile targets should be created from code files based on two criteria:
+
+* Files should have a recognised file extension (the current defaults are `*.py` and `*.R`).
+* Files should be specified as Makefile targets. Bubble recognises the commented string `# *** bubble make ***` in source files.
+
+`bubble` parses dependencies specified between the `# *** bubble input start ***` and `# *** bubble input end ***` strings. Dependencies are identified within double quotes `""`. The last dependency in the list is assumed to be the output file.
+
+Accepting command line arguments in Python files while allowing interactive coding requires the strings ``"__main__"`` and `"null"`. These strings will be ignored by `bubble`.
+
 Made with :heart:

@@ -70,6 +70,21 @@ def test_scaffold_raises(tmp_dir):
         utils.scaffold(fn, 'test')
 
 
+def test_scaffold_tag(tmp_dir):
+
+    fn = tmp_dir + '/test_scaffold.py'
+
+    os.remove(fn)
+
+    utils.scaffold(fn, 'test', False)
+
+    with open(fn, 'r') as f:
+
+        content = f.read()
+
+    assert 'Template by bubble with <3' in content
+
+
 def test_get_bubble_config(tmp_dir):
 
     utils.write_bubble_config(tmp_dir)
