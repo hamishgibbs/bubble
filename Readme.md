@@ -78,10 +78,6 @@ Options:
 
 *-root* *(--root)*: Specify the project root. Default: `os.getcwd()`.
 
-# Contributions
-
-Contributions are welcome. If you encounter problems while using this library, please [open an issue.](https://github.com/hamishgibbs/bubble/issues/new)
-
 # How it works
 
 This is a simple library with a limited scope. It is intended to take dependencies specified in code files and move them to a makefile to make it simple to automate the creation of research (or other) outputs.
@@ -94,5 +90,9 @@ This is a simple library with a limited scope. It is intended to take dependenci
 `bubble` parses dependencies specified between the `# *** bubble input start ***` and `# *** bubble input end ***` strings. Dependencies are identified within double quotes `""`. The last dependency in the list is assumed to be the output file.
 
 Accepting command line arguments in Python files while allowing interactive coding requires the strings ``"__main__"`` and `"null"`. These strings will be ignored by `bubble`.
+
+# Contributions
+
+Contributions are welcome. If you encounter problems while using this library, please [open an issue.](https://github.com/hamishgibbs/bubble/issues/new)
 
 Made with :heart:
