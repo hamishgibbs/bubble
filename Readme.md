@@ -40,7 +40,7 @@ bubble create -f src/example.py
 Extract the dependencies from this file and update the Makefile at the project root.
 
  ``` {shell}
- bubble makefile
+ bubble make
  ```
 
 `Successfully updated 1 Makefile targets. 🎂`
