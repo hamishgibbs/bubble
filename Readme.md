@@ -59,7 +59,7 @@ The entry point for the bubble cli is `bubble`. For more information, use `bubbl
 
 Options:
 
-*-root* *(--root)*: Specify the project root. Default: `os.getcwd()`.
+*--root* *(-root)*: Specify the project root. Default: `os.getcwd()`.
 
 #### create
 
@@ -67,8 +67,8 @@ Options:
 
 Options:
 
-*-f* *(--file)*: Path of a file to create. Accepts `Makefile`, `*.py`, and `*.R` files.  
-*-t* *(--tag)*: Omit the bubble file tag. Files are tagged by default.
+*--file* *(--f)*: Path of a file to create. Accepts `Makefile`, `*.py`, and `*.R` files.  
+*--tag* *(--t)*: Omit the bubble file tag. Files are tagged by default.
 
 #### make
 
@@ -76,7 +76,7 @@ Options:
 
 Options:
 
-*-root* *(--root)*: Specify the project root. Default: `os.getcwd()`.
+*--root* *(-root)*: Specify the project root. Default: `os.getcwd()`.
 
 # How it works
 
