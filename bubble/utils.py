@@ -13,7 +13,7 @@ def scaffold(file, template, tag=None):
 
     try:
 
-        if tag:
+        if not tag:
 
             template = '# -- Template by bubble with <3. --\n\n' + template
 
