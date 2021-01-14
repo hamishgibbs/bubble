@@ -86,7 +86,7 @@ Contributions are welcome. If you encounter problems while using this library, p
 
 This is a simple library with a limited scope. It is intended to take dependencies specified in code files and move them to a makefile to make it simple to automate the creation of research (or other) outputs.
 
-`bubble` looks into code files they should be made based on two criteria:
+`bubble` decides whether Makefile targets should be created from code files based on two criteria:
 
 * Files should have a recognised file extension (the current defaults are `*.py` and `*.R`).
 * Files should be specified as Makefile targets. Bubble recognises the commented string `# *** bubble make ***` in source files.
